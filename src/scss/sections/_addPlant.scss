@@ -1,0 +1,75 @@
+.container {
+max-width: 414px;
+  padding: 10px;
+}
+
+.plantForm {
+  &__title {
+    font-family: $font-secondary;
+    color: $color-font
+  }
+  &__label {
+    font-family: $font-secondary;
+    color: $color-font;
+    padding-bottom: 10px;
+}
+  &__input {
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid $color-font-second;
+    font-size: 14px;
+    font-family: $font-main;
+  }
+  &__select {
+    padding: 5px 0px;
+    font-size: 14px;
+    font-family: $font-main;
+  }
+  &__selectOption {
+    font-size: 14px;
+    font-family: $font-main;
+  }
+  &__textarea {
+    margin-top: 10px;
+    font-family: $font-main;
+    padding: 5px;
+  }
+  &__div {
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+  }
+  &__checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3px;
+    justify-content: space-between;
+  }
+  &__checkbox-label {
+    background-color: $color-main;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    font-family: $font-main;
+    padding: 4px;
+    margin: 1px;
+    flex-basis: 13%;
+    border-radius: 25px;
+
+  }
+  &__checkbox-input {
+    display: none;
+  }
+  &__addBtn {
+    background-color: $color-main;
+    color: white;
+    font-weight: 600;
+    font-family: $font-main;
+    border: none;
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    margin-top: 10px;
+  }
+}
+
