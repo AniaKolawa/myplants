@@ -1,10 +1,23 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-// import {cloneDeep} from 'lodash';
-import {monthsDataMineral, monthsDataOrganic} from "./months";
+import {cloneDeep} from 'lodash';
+import {monthsData} from "./months";
 import RenderCheckBoxes from "./Checkbox";
 
 import {db} from "../firebase";
+
+// const plantDataFactory = {
+//     plantName: "",
+//     stand: "",
+//     soil: "",
+//     img: "",
+//     additionalInfo: "",
+//     fertilizationOrganicMonths: [],
+//     fertilizerOrganic: "",
+//     fertilizationMineralMonths: [],
+//     fertilizerMineral: ""
+// }
+
 
 const AddPlant = () => {
 
@@ -17,7 +30,16 @@ const AddPlant = () => {
     const [fertilizerOrganic, setFertilizerOrganic] = useState("");
     const [fertilizationMineralMonths, setFertilizationMineralMonths] = useState([]);
     const [fertilizerMineral, setFertilizerMineral] = useState("");
+    const [errors, setErrors] = useState([]);
 
+
+    // const [plantData, setPlantData] = useState(cloneDeep(plantDataFactory));
+
+    // const modifyState = (key, value) => {
+    //     let temp = cloneDeep(plantData);
+    //     temp[key] = value;
+    //     setPlantData(temp);
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,10 +53,20 @@ const AddPlant = () => {
             image_url: img,
             fertilizer_organic: fertilizerOrganic,
             fertilizer_mineral: fertilizerMineral,
-
+            fertilization_organic: fertilizationOrganicMonths.map((el) => el.id),
+            fertilization_mineral: fertilizationMineralMonths.map((el) => el.id)
 
         }
-        db.collection("plants").doc(plantName).set(newPlantData)
+        const tempErrors =[];
+        if (plantName.length < 1){
+            tempErrors.push("Musisz podać nazwę rośliny!")
+        }
+        setErrors(tempErrors);
+        if (tempErrors.length > 0){
+            return;
+        }
+
+        db.collection("plants").add(newPlantData)
             .then(() => {
                 console.log("Document successfully written!");
             })
@@ -48,8 +80,10 @@ const AddPlant = () => {
         setAdditionalInfo("");
         setFertilizerOrganic("");
         setFertilizerMineral("");
-        setFertilizationMineralMonths([]);
-        setFertilizationOrganicMonths([]);
+
+
+        // setFertilizationMineralMonths([]);
+        // setFertilizationOrganicMonths([]);
     }
 
 
@@ -58,7 +92,7 @@ const AddPlant = () => {
     return (
         <div className="plantContainer container">
 
-            <a href="#">powrót</a>
+            <a className="goBack" href="#">&lt;&lt; powrót</a>
             <h2 className="plantForm__title">DODAJ ROŚLINĘ</h2>
             <form className="plantForm" onSubmit={(e) => handleSubmit(e)}>
                 <div className="plantForm__div">
@@ -101,7 +135,10 @@ const AddPlant = () => {
 
                 <div className="plantForm__div">
                     <label htmlFor={fertilizationOrganicMonths} className="plantForm__label--fertilizationOrganic plantForm__label">Nawożenie organiczne</label>
-                    <RenderCheckBoxes id="fertilizationOrganicMonths" className="plantForm__checkbox" data={monthsDataOrganic}/>
+                    <RenderCheckBoxes id="fertilizationOrganicMonths"
+                                      className="plantForm__checkbox"
+                                      setFertilizationMonths={setFertilizationOrganicMonths}
+                                      data={monthsData}/>
                 </div>
 
                 <div className="plantForm__div">
@@ -116,7 +153,10 @@ const AddPlant = () => {
 
                 <div className="plantForm__div">
                     <label htmlFor={fertilizationMineralMonths} className="plantForm__label--fertilizationMineral plantForm__label">Nawożenie mineralne</label>
-                    <RenderCheckBoxes id="fertilizationMineralMonths" className="plantForm__checkbox" data={monthsDataMineral}/>
+                    <RenderCheckBoxes id="fertilizationMineralMonths"
+                                      className="plantForm__checkbox"
+                                      setFertilizationMonths={setFertilizationMineralMonths}
+                                      data={monthsData}/>
                 </div>
 
 
@@ -153,6 +193,9 @@ const AddPlant = () => {
                 </div>
                 <button className="plantForm__addBtn" type="submit">Dodaj</button>
             </form>
+            <div className="error">
+                {(errors.length > 0) && (errors.map((error, i) => <p key={i}>{error}</p>))}
+            </div>
         </div>
     );
 };

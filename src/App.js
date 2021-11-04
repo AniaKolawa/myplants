@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  NavLink,
   Link
 } from "react-router-dom";
 import AddPlant from "./js/AddPlant";
@@ -13,22 +14,7 @@ export default function App() {
   return (
       <Router>
         <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/myplants">Moje rośliny</Link>
-              </li>
-              <li>
-                <Link to="/search">Szukaj</Link>
-              </li>
-              <li>
-                <Link to="/addplant">Dodaj roślinę</Link>
-              </li>
-            </ul>
-          </nav>
+
 
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -42,10 +28,16 @@ export default function App() {
             <Route path="/" exact component={Home}>
               <Home />
             </Route>
-            <Route path="/addplant" component={AddPlant}>
-              {/*<AddPlant />*/}
+            <Route path="/addplant" >
+              <AddPlant />
             </Route>
           </Switch>
+            <nav className="navigation container">
+                <NavLink className="navLink" activeClassName="navLinkActive" to="/"><i className="fas fa-home navIcon navIcon--home"></i></NavLink>
+                <NavLink className="navLink" activeClassName="navLinkActive" to="/myplants"><i className="fas fa-seedling navIcon navIcon--plants"></i></NavLink>
+                <NavLink className="navLink" activeClassName="navLinkActive" to="/search"><i className="fas fa-search navIcon navIcon--search"></i></NavLink>
+                <NavLink className="navLink" activeClassName="navLinkActive" to="/addplant"><i className="fas fa-plus navIcon navIcon--add"></i></NavLink>
+            </nav>
         </div>
       </Router>
   );

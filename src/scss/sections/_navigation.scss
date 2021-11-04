@@ -1,0 +1,23 @@
+.navIcon {
+  color: $color-main;
+  font-size: 28px;
+
+}
+.navLink {
+  text-decoration: none;
+  list-style: none;
+
+}
+.navLinkActive {
+  color: black
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  //border: 1px solid $color-font-second;
+  background-color: #eaeaea;
+  border-radius: 25px;
+  padding: 10px 15px;
+  margin-top: 10px;
+}

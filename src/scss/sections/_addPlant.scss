@@ -46,7 +46,7 @@ max-width: 414px;
     justify-content: space-between;
   }
   &__checkbox-label {
-    background-color: $color-main;
+    background-color: lightgrey;
     color: white;
     font-weight: 600;
     text-align: center;
@@ -55,7 +55,12 @@ max-width: 414px;
     margin: 1px;
     flex-basis: 13%;
     border-radius: 25px;
+    cursor: pointer;
 
+  }
+  &__checkbox-label--active {
+    background-color: $color-main;
+    //box-shadow: inset 0 0 10px $color-font;
   }
   &__checkbox-input {
     display: none;
@@ -72,4 +77,18 @@ max-width: 414px;
     margin-top: 10px;
   }
 }
+.goBack {
+  color: $color-main;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: $font-main;
 
+}
+.error {
+
+  line-height: 0px;
+  color: red;
+  margin-top: 10px;
+  font-family: $font-main;
+  font-size: 12px;
+}
