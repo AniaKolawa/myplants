@@ -31,6 +31,7 @@ const AddPlant = () => {
     const [fertilizationMineralMonths, setFertilizationMineralMonths] = useState([]);
     const [fertilizerMineral, setFertilizerMineral] = useState("");
     const [errors, setErrors] = useState([]);
+    // const [idCounter, setIdCounter] = useState(0)
 
 
     // const [plantData, setPlantData] = useState(cloneDeep(plantDataFactory));
@@ -92,7 +93,6 @@ const AddPlant = () => {
     return (
         <div className="plantContainer container">
 
-            <a className="goBack" href="#">&lt;&lt; powrót</a>
             <h2 className="plantForm__title">DODAJ ROŚLINĘ</h2>
             <form className="plantForm" onSubmit={(e) => handleSubmit(e)}>
                 <div className="plantForm__div">

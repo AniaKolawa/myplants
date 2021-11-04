@@ -8,6 +8,7 @@ import {
   Link
 } from "react-router-dom";
 import AddPlant from "./js/AddPlant";
+import PlantsList from "./js/PlantsList";
 
 
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
           <Switch>
             <Route path="/myplants">
-              <MyPlants />
+              <PlantsList />
             </Route>
             <Route path="/search">
               <Search />
@@ -51,7 +52,5 @@ function Search() {
   return <h2>Search</h2>;
 }
 
-function MyPlants() {
-  return <h2>My plants</h2>;
-}
+
 

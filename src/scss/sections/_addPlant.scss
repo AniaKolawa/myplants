@@ -5,8 +5,9 @@ max-width: 414px;
 
 .plantForm {
   &__title {
-    font-family: $font-secondary;
-    color: $color-font
+    font-family: $font-main;
+    color: $color-main;
+
   }
   &__label {
     font-family: $font-secondary;
@@ -77,13 +78,7 @@ max-width: 414px;
     margin-top: 10px;
   }
 }
-.goBack {
-  color: $color-main;
-  font-weight: 600;
-  text-decoration: none;
-  font-family: $font-main;
 
-}
 .error {
 
   line-height: 0px;
