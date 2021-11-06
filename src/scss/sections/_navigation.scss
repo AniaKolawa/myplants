@@ -15,9 +15,22 @@
 .navigation {
   display: flex;
   justify-content: space-around;
-  //border: 1px solid $color-font-second;
-  background-color: #eaeaea;
+  align-items: center;
+  background: lightgray;
+  height: 50px;
+  width: 100%;
   border-radius: 25px;
-  padding: 10px 15px;
-  margin-top: 10px;
+}
+.nav-container {
+  max-width: 414px;
+  width: 100%;
+  position: fixed;
+  padding: 0 10px;
+  box-sizing: border-box;
+  bottom: 10px;
+  //margin: auto;
+
+}
+.separator {
+  height: 70px;
 }

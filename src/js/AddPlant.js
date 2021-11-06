@@ -31,16 +31,7 @@ const AddPlant = () => {
     const [fertilizationMineralMonths, setFertilizationMineralMonths] = useState([]);
     const [fertilizerMineral, setFertilizerMineral] = useState("");
     const [errors, setErrors] = useState([]);
-    // const [idCounter, setIdCounter] = useState(0)
 
-
-    // const [plantData, setPlantData] = useState(cloneDeep(plantDataFactory));
-
-    // const modifyState = (key, value) => {
-    //     let temp = cloneDeep(plantData);
-    //     temp[key] = value;
-    //     setPlantData(temp);
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,8 +45,8 @@ const AddPlant = () => {
             image_url: img,
             fertilizer_organic: fertilizerOrganic,
             fertilizer_mineral: fertilizerMineral,
-            fertilization_organic: fertilizationOrganicMonths.map((el) => el.id),
-            fertilization_mineral: fertilizationMineralMonths.map((el) => el.id)
+            fertilization_organic: fertilizationOrganicMonths.map((el) => el.name),
+            fertilization_mineral: fertilizationMineralMonths.map((el) => el.name)
 
         }
         const tempErrors =[];
@@ -83,8 +74,8 @@ const AddPlant = () => {
         setFertilizerMineral("");
 
 
-        // setFertilizationMineralMonths([]);
-        // setFertilizationOrganicMonths([]);
+        setFertilizationOrganicMonths(fertilizationOrganicMonths.map((el) => el.isChecked = false));
+        setFertilizationMineralMonths(fertilizationMineralMonths.map((el) => el.isChecked = false));
     }
 
 
@@ -93,7 +84,7 @@ const AddPlant = () => {
     return (
         <div className="plantContainer container">
 
-            <h2 className="plantForm__title">DODAJ ROŚLINĘ</h2>
+            <h2 className="title">DODAJ ROŚLINĘ</h2>
             <form className="plantForm" onSubmit={(e) => handleSubmit(e)}>
                 <div className="plantForm__div">
                     <label className="plantForm__label--name plantForm__label" htmlFor="name">Nazwa</label>
@@ -113,9 +104,9 @@ const AddPlant = () => {
                             value={stand}
                             onChange={e => setStand(e.target.value)}>
                         <option className="plantForm__selectOption" value="choose"> </option>
-                        <option className="plantForm__selectOption" value="sun">słoneczne</option>
-                        <option className="plantForm__selectOption" value="halfShade">półcień</option>
-                        <option className="plantForm__selectOption" value="shade">cień</option>
+                        <option className="plantForm__selectOption" value="słoneczne">słoneczne</option>
+                        <option className="plantForm__selectOption" value="półcień">półcień</option>
+                        <option className="plantForm__selectOption" value="cień">cień</option>
                     </select>
                 </div>
 
@@ -127,9 +118,9 @@ const AddPlant = () => {
                             value={soil}
                             onChange={e => setSoil(e.target.value)}>
                         <option className="plantForm__selectOption" value="choose"> </option>
-                        <option className="plantForm__selectOption" value="acid">kwaśne</option>
-                        <option className="plantForm__selectOption" value="neutral">obojętne</option>
-                        <option className="plantForm__selectOption" value="alkaline">zasadowe</option>
+                        <option className="plantForm__selectOption" value="kwaśne">kwaśne</option>
+                        <option className="plantForm__selectOption" value="obojętne">obojętne</option>
+                        <option className="plantForm__selectOption" value="zasadowe">zasadowe</option>
                     </select>
                 </div>
 

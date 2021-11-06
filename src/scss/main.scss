@@ -1,6 +1,8 @@
-
+//@import "generic/reset";
 @import "settings/fonts";
 @import "settings/colors";
-
+@import "app";
 @import "sections/addPlant";
 @import "sections/navigation";
+@import "sections/plantsList";
+@import "sections/plantDetails";

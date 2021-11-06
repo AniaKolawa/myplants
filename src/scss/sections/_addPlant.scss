@@ -1,14 +1,6 @@
-.container {
-max-width: 414px;
-  padding: 10px;
-}
 
 .plantForm {
-  &__title {
-    font-family: $font-main;
-    color: $color-main;
 
-  }
   &__label {
     font-family: $font-secondary;
     color: $color-font;
@@ -54,7 +46,7 @@ max-width: 414px;
     font-family: $font-main;
     padding: 4px;
     margin: 1px;
-    flex-basis: 13%;
+    flex-basis: 14%;
     border-radius: 25px;
     cursor: pointer;
 

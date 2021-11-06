@@ -8,9 +8,7 @@ export default function RenderCheckBoxes({ data, setFertilizationMonths}) {
         let array = cloneDeep(months);
         array[i].isChecked = !array[i].isChecked;
         setMonths(array);
-        console.log(array)
         const filteredMonths = array.filter((item) => item.isChecked)
-        console.log(filteredMonths)
         setFertilizationMonths(filteredMonths)
 
     };
