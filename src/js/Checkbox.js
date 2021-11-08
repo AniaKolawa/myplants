@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { cloneDeep } from "lodash";
 
-export default function RenderCheckBoxes({ data, setFertilizationMonths}) {
+export default function RenderCheckBoxes({ data, setFertilizationMonths, field}) {
     const [months, setMonths] = useState(cloneDeep(data));
 
     const onCheckboxChange = (i) => {
@@ -9,15 +9,18 @@ export default function RenderCheckBoxes({ data, setFertilizationMonths}) {
         array[i].isChecked = !array[i].isChecked;
         setMonths(array);
         const filteredMonths = array.filter((item) => item.isChecked)
-        setFertilizationMonths(filteredMonths)
+        setFertilizationMonths(filteredMonths, field)
 
     };
+    useEffect(()=>{
+        setMonths(cloneDeep(data))
+    },[data])
 
     // const filterAndModify = (array) => {
     //     const filteredMonths = array.reduce((acc, curr) => {
     //         return curr.isChecked ? [...acc, curr.name] : acc;
     //     }, []);
-        // modifyState(field, filteredMonths);
+    // modifyState(field, filteredMonths);
     // }
 
 

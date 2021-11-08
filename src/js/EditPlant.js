@@ -1,40 +1,60 @@
-
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router";
-import {db} from "../firebase";
-
+import {db, } from "../firebase";
 import {monthsData} from "./months";
 import RenderCheckBoxes from "./Checkbox";
-
-
+import {cloneDeep} from "lodash";
 
 const EditPlant = () => {
 
+
     const {id} = useParams()
-    const [prevPlantDetails, setPrevPlantDetails] = useState(false);
-    const [editedPlantDetails, setEditedPlantDetails] = useState(false);
-
-
+    const [plantData, setPlantData] = useState(false);
+    const [initialCheckbox, setInitialCheckbox] = useState(cloneDeep(monthsData));
+    const [initialCheckbox2, setInitialCheckbox2] = useState(cloneDeep(monthsData));
 
     useEffect(() => {
         db.collection("plants").doc(`${id}`)
             .get()
             .then((doc) => {
-                console.log(doc.data())
-                setPrevPlantDetails({
+                setPlantData({
                     ...doc.data(),
                 });
+                const plant =  {...doc.data()}
+                const checkboxes1 = setCheckBoxes(monthsData, plant.fertilization_mineral)
+                const checkboxes2= setCheckBoxes(monthsData, plant.fertilization_organic)
+                setInitialCheckbox(checkboxes1)
+                setInitialCheckbox2(checkboxes2)
             })
-
     }, [])
 
-    const handleEditInputValue = (e) => {
-        const {name, value} = e.target
-        setEditedPlantDetails({
-            ...editedPlantDetails,
-            [name]: value
-        });
-}
+    const onSubmit = (e) =>{
+        db.collection('plants').doc(`${id}`).update({...plantData, })
+    }
+
+    const onChange = (key, value) =>{
+        let object = cloneDeep(plantData)
+        object[key] = value
+        setPlantData(object)
+    }
+
+    const handleCheckBox = (array, field) =>{
+        let data = cloneDeep(plantData)
+        data[field] = array.reduce((acc, curr)=> [...acc, curr.name] ,[])
+        setPlantData(data)
+    }
+
+
+    const setCheckBoxes = (config, data=[]) =>{
+        const newData = config.map((item)=>{
+            const isTrue = data.some((element)=> {
+                return element === item.name
+            })
+            return isTrue ? {...item, isChecked: true} : item
+        })
+        return  cloneDeep(newData)
+    }
+
 
 
     return (
@@ -43,13 +63,15 @@ const EditPlant = () => {
             <h2 className="title">EDYTUJ ROŚLINĘ</h2>
             <form className="plantForm" >
                 <div className="plantForm__div">
-                    <label className="plantForm__label--name plantForm__label" htmlFor="name">Nazwa</label>
-                    <input className="plantForm__input--name plantForm__input"
-                           id="name"
-                           name="name"
-                           type="text"
-                           value={prevPlantDetails.name}
-                           onChange={(e) => handleEditInputValue}
+                    <label className="plantForm__label--name plantForm__label" htmlFor="name"
+                    >Nazwa</label>
+                    <input
+                        className="plantForm__input--name plantForm__input"
+                        id="name"
+                        name="name"
+                        type="text"
+                        value={plantData.name}
+                        onChange={(e)=>{onChange('name',e.target.value)}}
                     />
                 </div>
 
@@ -58,7 +80,8 @@ const EditPlant = () => {
                     <select className="plantForm__select--stand plantForm__select"
                             id="stand"
                             name="stand"
-                            value={prevPlantDetails.stand}>
+                            onChange={(e)=>{onChange('stand',e.target.value)}}
+                            value={plantData.stand}>
 
                         <option className="plantForm__selectOption" value="choose"> </option>
                         <option className="plantForm__selectOption" value="słoneczne">słoneczne</option>
@@ -70,9 +93,10 @@ const EditPlant = () => {
                 <div className="plantForm__div">
                     <label className="plantForm__label--soil plantForm__label" htmlFor="soil">Preferowane podłoże</label>
                     <select className="plantForm__select--soil plantForm__select"
+                            onChange={(e)=>{onChange('soil',e.target.value)}}
                             id="soil"
                             name="soil"
-                            value={prevPlantDetails.soil}>
+                            value={plantData.soil}>
                         <option className="plantForm__selectOption" value="choose"> </option>
                         <option className="plantForm__selectOption" value="kwaśne" >kwaśne</option>
                         <option className="plantForm__selectOption" value="obojętne">obojętne</option>
@@ -82,10 +106,14 @@ const EditPlant = () => {
 
                 <div className="plantForm__div">
                     <label htmlFor="fertilizationOrganicMonths" className="plantForm__label--fertilizationOrganic plantForm__label">Nawożenie organiczne</label>
-                    <RenderCheckBoxes id="fertilizationOrganicMonths"
-                                      className="plantForm__checkbox"
+                    <RenderCheckBoxes
+                        id="fertilizationOrganicMonths"
+                        className="plantForm__checkbox"
+                        data={initialCheckbox}
+                        field='fertilization_mineral'
+                        setFertilizationMonths={handleCheckBox}
+                    />
 
-                                      data={monthsData}/>
                 </div>
 
                 <div className="plantForm__div">
@@ -94,14 +122,19 @@ const EditPlant = () => {
                            type="text"
                            id="fertilizerOrganic"
                            name="fertilizerOrganic"
-                           value={prevPlantDetails.fertilizer_organic}/>
+                           value={plantData.fertilizer_organic}
+                           onChange={(e)=>{onChange('fertilizer_organic',e.target.value)}}
+                    />
                 </div>
 
                 <div className="plantForm__div">
                     <label htmlFor="fertilizationMineralMonths" className="plantForm__label--fertilizationMineral plantForm__label">Nawożenie mineralne</label>
                     <RenderCheckBoxes id="fertilizationMineralMonths"
                                       className="plantForm__checkbox"
-                                      data={monthsData}/>
+                                      data={initialCheckbox2}
+                                      field='fertilization_organic'
+                                      setFertilizationMonths={handleCheckBox}
+                    />
                 </div>
 
 
@@ -111,8 +144,9 @@ const EditPlant = () => {
                            type="text"
                            id="fertilizerMineral"
                            name="fertilizerMineral"
-                           value={prevPlantDetails.fertilizer_mineral}
-                           />
+                           onChange={(e)=>{onChange('fertilizer_mineral',e.target.value)}}
+                           value={plantData.fertilizer_mineral}
+                    />
                 </div>
 
                 <div className="plantForm__div">
@@ -121,7 +155,8 @@ const EditPlant = () => {
                               name="additionalInfo"
                               id="additionalInfo"
                               rows="3"
-                              value={prevPlantDetails.additional_Info}
+                              onChange={(e)=>{onChange('additional_Info',e.target.value)}}
+                              value={plantData.additional_Info}
                               placeholder="Wpisz dodatkowe informacje">
                     </textarea>
                 </div>
@@ -129,12 +164,19 @@ const EditPlant = () => {
                 <div className="plantForm__div">
                     <label className="plantForm__label--img plantForm__label" htmlFor="img">Dodaj link do zdjęcia</label>
                     <input className="plantForm__input--img plantForm__input"
-                           value={prevPlantDetails.image_url}
+                           onChange={(e)=>{onChange('image_url',e.target.value)}}
+                           value={plantData.image_url}
                            id="img"
                            name="img"
-                           type="text"/>
+                           type="text"
+                    />
                 </div>
-                <button className="plantForm__addBtn" type="submit">Edytuj</button>
+                <button
+                    className="plantForm__addBtn"
+                    type='button'
+                    onClick={(e)=>{onSubmit(e)}}>
+                    Edytuj
+                </button>
             </form>
             {/*<div className="error">*/}
             {/*    {(errors.length > 0) && (errors.map((error, i) => <p key={i}>{error}</p>))}*/}
