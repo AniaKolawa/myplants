@@ -10,7 +10,7 @@ import {
 import AddPlant from "./js/AddPlant";
 import PlantsList from "./js/PlantsList";
 import PlantDetails from "./js/PlantDetails";
-
+import EditPlant from "./js/EditPlant";
 
 export default function App() {
   return (
@@ -24,9 +24,12 @@ export default function App() {
             <Route exact path="/myplants">
               <PlantsList />
             </Route>
-              <Route path={"/myplants/:id"}>
-                  <PlantDetails/>
-              </Route>
+            <Route exact path={"/myplants/:id"}>
+              <PlantDetails/>
+            </Route>
+            <Route exact path={"/myplants/edit/:id/"}>
+              <EditPlant/>
+            </Route>
             <Route path="/search">
               <Search />
             </Route>
