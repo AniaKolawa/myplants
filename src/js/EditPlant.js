@@ -45,7 +45,7 @@ const EditPlant = () => {
     }
 
 
-    const setCheckBoxes = (config, data=[]) =>{
+    const setCheckBoxes = (config, data) =>{
         const newData = config.map((item)=>{
             const isTrue = data.some((element)=> {
                 return element === item.name

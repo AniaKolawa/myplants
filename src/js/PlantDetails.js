@@ -4,6 +4,7 @@ import {useParams} from "react-router";
 import {db} from "../firebase";
 
 import {monthsData} from "./months";
+import {Link} from "react-router-dom";
 
 
 
@@ -36,12 +37,13 @@ const PlantDetails = () => {
                 <h2 className="title">{showPlantDetails.name}</h2>
                 <DetailsElement  title='Stanowisko' property={showPlantDetails.stand} />
                 <DetailsElement  title='Podłoże' property={showPlantDetails.soil} />
-                <DetailsElement  title='Nawożenie organiczne' property={ showPlantDetails.fertilization_organic?.join([' '])}/>
+                <DetailsElement  title='Nawożenie organiczne' property={ showPlantDetails.fertilization_organic?.join([', '])}/>
                 <DetailsElement  title='Nawóz organiczny' property={showPlantDetails.fertilizer_organic} />
-                <DetailsElement  title='Nawożenie mineralne' property={ showPlantDetails.fertilization_mineral?.join([' '])}/>
+                <DetailsElement  title='Nawożenie mineralne' property={ showPlantDetails.fertilization_mineral?.join([', '])}/>
                 <DetailsElement  title='Nawóz mineralny' property={showPlantDetails.fertilizer_mineral} />
                 <DetailsElement  title='Dodatkowe informacje' property={showPlantDetails.additional_Info} />
             </div>
+            <Link to={`/myplants/edit/${id}`} className="plantForm__addBtn">Edytuj</Link>
         </div>
     );
 };

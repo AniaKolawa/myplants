@@ -5,9 +5,7 @@ import {Link} from "react-router-dom";
 const PlantsList = () => {
     const [plants, setPlants] = useState([]);
 
-    const handleShowDetails = () => {
 
-    }
 
     useEffect(() => {
         db.collection("plants")
@@ -41,8 +39,11 @@ const PlantsList = () => {
 
                         <div className="plantsList__innerContainer">
                             <p className="plantsList__plantName">{el.name}</p>
-                            <Link to={`/myplants/${el.id}`} className="plantsList__btn">Szczegóły</Link>
-                            <Link to={`/myplants/edit/${el.id}`} className="plantsList__btn">Edytuj</Link>
+                            <div className="plantsList__buttonsContainer">
+                                <Link to={`/myplants/${el.id}`} className="plantsList__btn">Szczegóły</Link>
+                                <Link to={`/myplants/edit/${el.id}`} className="plantsList__btn">Edytuj</Link>
+                            </div>
+
                         </div>
 
                     </div>

@@ -9,7 +9,7 @@ export default function RenderCheckBoxes({ data, setFertilizationMonths, field})
         array[i].isChecked = !array[i].isChecked;
         setMonths(array);
         const filteredMonths = array.filter((item) => item.isChecked)
-        setFertilizationMonths(filteredMonths, field)
+        setFertilizationMonths(filteredMonths, field) //fertilization_mineral
 
     };
     useEffect(()=>{
