@@ -1,18 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router";
+import {useParams, Route, useHistory} from "react-router";
 import {db, } from "../firebase";
 import {monthsData} from "./months";
 import RenderCheckBoxes from "./Checkbox";
-import {cloneDeep} from "lodash";
+import {cloneDeep, isEqual} from "lodash";
+import {toast} from "react-toastify";
+
 
 const EditPlant = () => {
 
 
     const {id} = useParams()
-    const [plantData, setPlantData] = useState(false);
+    const [plantData, setPlantData] = useState([]);
+    const [initialState, setInitialState]  = useState([])
     const [initialCheckbox, setInitialCheckbox] = useState(cloneDeep(monthsData));
     const [initialCheckbox2, setInitialCheckbox2] = useState(cloneDeep(monthsData));
     const [errors, setErrors] = useState([]);
+    let history = useHistory();
 
     useEffect(() => {
         db.collection("plants").doc(`${id}`)
@@ -21,6 +25,9 @@ const EditPlant = () => {
                 setPlantData({
                     ...doc.data(),
                 });
+                setInitialState({
+                    ...doc.data(),
+                })
                 const plant =  {...doc.data()}
                 const checkboxes1 = setCheckBoxes(monthsData, plant.fertilization_mineral)
                 const checkboxes2= setCheckBoxes(monthsData, plant.fertilization_organic)
@@ -28,6 +35,10 @@ const EditPlant = () => {
                 setInitialCheckbox2(checkboxes2)
             })
     }, [])
+
+    const buttonDisabled = () =>{
+        return isEqual(initialState, plantData)
+    }
 
     const onSubmit = (e) =>{
         const tempErrors =[];
@@ -41,14 +52,20 @@ const EditPlant = () => {
 
         db.collection('plants').doc(`${id}`).update({...plantData, })
             .then(() => {
-                console.log("Document successfully written!");
-                // return <div>Zapisano zmiany</div>
+                toast.success("Edytowano!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                history.push("/myplants");
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
             });
-
-
     }
 
     const onChange = (key, value) =>{
@@ -193,6 +210,7 @@ const EditPlant = () => {
                 <button
                     className="plantForm__addBtn"
                     type='button'
+                    disabled={buttonDisabled()}
                     onClick={(e)=>{onSubmit(e)}}>
                     Edytuj
                 </button>

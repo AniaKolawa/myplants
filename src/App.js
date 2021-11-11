@@ -11,6 +11,8 @@ import AddPlant from "./js/AddPlant";
 import PlantsList from "./js/PlantsList";
 import PlantDetails from "./js/PlantDetails";
 import EditPlant from "./js/EditPlant";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 // import Search from "./js/Search";
 
 export default function App() {
@@ -18,7 +20,15 @@ export default function App() {
       <Router>
         <div>
 
-
+          <ToastContainer position="top-center"
+                          autoClose={5000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeOnClick
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover/>
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
@@ -56,9 +66,7 @@ export default function App() {
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
+
 
 function Search() {
   return <h2>Search</h2>;

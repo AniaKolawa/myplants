@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router";
 import {db} from "../firebase";
 
-import {monthsData} from "./months";
+
 import {Link} from "react-router-dom";
 
 
@@ -18,7 +18,6 @@ const PlantDetails = () => {
         db.collection("plants").doc(`${id}`)
             .get()
             .then((doc) => {
-                // console.log(doc.data())
                 setShowPlantDetails({
                     ...doc.data(),
                 })
@@ -44,7 +43,6 @@ const PlantDetails = () => {
                 <DetailsElement  title='Dodatkowe informacje' property={showPlantDetails.additional_Info} />
                 <Link to={`/myplants/edit/${id}`} className="plantForm__addBtn">Edytuj</Link>
             </div>
-
         </div>
     );
 };

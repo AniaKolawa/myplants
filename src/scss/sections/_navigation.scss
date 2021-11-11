@@ -1,13 +1,13 @@
 .navIcon {
   color: $color-main;
   font-size: 28px;
-
 }
+
 .navLink {
   text-decoration: none;
   list-style: none;
-
 }
+
 .navLinkActive {
   color: black
 }
@@ -21,6 +21,7 @@
   width: 100%;
   border-radius: 25px;
 }
+
 .nav-container {
   max-width: 414px;
   width: 100%;
@@ -28,9 +29,8 @@
   padding: 0 10px;
   box-sizing: border-box;
   bottom: 10px;
-  //margin: auto;
-
 }
+
 .separator {
   height: 70px;
 }

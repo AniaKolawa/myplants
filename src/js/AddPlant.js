@@ -3,20 +3,7 @@ import { Link } from 'react-router-dom';
 import {cloneDeep} from 'lodash';
 import {monthsData} from "./months";
 import RenderCheckBoxes from "./Checkbox";
-
 import {db} from "../firebase";
-
-// const plantDataFactory = {
-//     plantName: "",
-//     stand: "",
-//     soil: "",
-//     img: "",
-//     additionalInfo: "",
-//     fertilizationOrganicMonths: [],
-//     fertilizerOrganic: "",
-//     fertilizationMineralMonths: [],
-//     fertilizerMineral: ""
-// }
 
 
 const AddPlant = () => {
@@ -48,12 +35,13 @@ const AddPlant = () => {
             fertilizer_mineral: fertilizerMineral,
             fertilization_organic: fertilizationOrganicMonths.map((el) => el.name),
             fertilization_mineral: fertilizationMineralMonths.map((el) => el.name)
-
         }
+
         const tempErrors =[];
         if (plantName.length < 1){
             tempErrors.push("Musisz podać nazwę rośliny!")
         }
+
         setErrors(tempErrors);
         if (tempErrors.length > 0){
             return;
@@ -73,8 +61,6 @@ const AddPlant = () => {
         setAdditionalInfo("");
         setFertilizerOrganic("");
         setFertilizerMineral("");
-
-
         setFertilizationOrganicMonths(fertilizationOrganicMonths.map((el) => el.isChecked = false));
         setFertilizationMineralMonths(fertilizationMineralMonths.map((el) => el.isChecked = false));
     }

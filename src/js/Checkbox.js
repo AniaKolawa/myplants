@@ -16,18 +16,11 @@ export default function RenderCheckBoxes({ data, setFertilizationMonths, field})
         setMonths(cloneDeep(data))
     },[data])
 
-    // const filterAndModify = (array) => {
-    //     const filteredMonths = array.reduce((acc, curr) => {
-    //         return curr.isChecked ? [...acc, curr.name] : acc;
-    //     }, []);
-    // modifyState(field, filteredMonths);
-    // }
 
 
     return (
         <div className="plantForm__checkbox">
             {months.map((item, index) => {
-
                 return (
                     <label className={`plantForm__checkbox-label ${item.isChecked && "plantForm__checkbox-label--active"}`} key={item.id}>
                         {item.name}

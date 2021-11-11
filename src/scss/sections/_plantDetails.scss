@@ -4,14 +4,15 @@
     max-height: 200px;
     overflow: hidden;
     border-radius: 25px 25px 1px 1px;
-
   }
+
   &__img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 }
+
 .plantDetails {
   //margin-bottom: 30px;
   padding: 5px 25px;
