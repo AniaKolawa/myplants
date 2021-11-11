@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-import {cloneDeep} from 'lodash';
 import {monthsData} from "./months";
 import RenderCheckBoxes from "./Checkbox";
 import {db} from "../firebase";
+import {toast} from "react-toastify";
+import {useHistory} from "react-router";
 
 
 const AddPlant = () => {
@@ -18,7 +18,8 @@ const AddPlant = () => {
     const [fertilizationMineralMonths, setFertilizationMineralMonths] = useState([]);
     const [fertilizerMineral, setFertilizerMineral] = useState("");
     const [errors, setErrors] = useState([]);
-    const [isActive, setIsActive] = useState(false);
+    let history = useHistory();
+
 
 
     const handleSubmit = (e) => {
@@ -49,7 +50,16 @@ const AddPlant = () => {
 
         db.collection("plants").add(newPlantData)
             .then(() => {
-                console.log("Document successfully written!");
+                toast.success("Dodano!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                history.push("/myplants");
             })
             .catch((error) => {
                 console.error("Error writing document: ", error);
