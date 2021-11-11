@@ -31,6 +31,7 @@ const AddPlant = () => {
     const [fertilizationMineralMonths, setFertilizationMineralMonths] = useState([]);
     const [fertilizerMineral, setFertilizerMineral] = useState("");
     const [errors, setErrors] = useState([]);
+    const [isActive, setIsActive] = useState(false);
 
 
     const handleSubmit = (e) => {

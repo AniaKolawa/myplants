@@ -12,6 +12,7 @@ const EditPlant = () => {
     const [plantData, setPlantData] = useState(false);
     const [initialCheckbox, setInitialCheckbox] = useState(cloneDeep(monthsData));
     const [initialCheckbox2, setInitialCheckbox2] = useState(cloneDeep(monthsData));
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         db.collection("plants").doc(`${id}`)
@@ -29,7 +30,25 @@ const EditPlant = () => {
     }, [])
 
     const onSubmit = (e) =>{
+        const tempErrors =[];
+        if (plantData.name.length < 1){
+            tempErrors.push("Musisz podać nazwę rośliny!")
+        }
+        setErrors(tempErrors);
+        if (tempErrors.length > 0){
+            return;
+        }
+
         db.collection('plants').doc(`${id}`).update({...plantData, })
+            .then(() => {
+                console.log("Document successfully written!");
+                // return <div>Zapisano zmiany</div>
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+
+
     }
 
     const onChange = (key, value) =>{
@@ -178,9 +197,9 @@ const EditPlant = () => {
                     Edytuj
                 </button>
             </form>
-            {/*<div className="error">*/}
-            {/*    {(errors.length > 0) && (errors.map((error, i) => <p key={i}>{error}</p>))}*/}
-            {/*</div>*/}
+            <div className="error">
+                {(errors.length > 0) && (errors.map((error, i) => <p key={i}>{error}</p>))}
+            </div>
         </div>
     );
 };

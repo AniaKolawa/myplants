@@ -69,8 +69,11 @@
     border-radius: 25px;
     margin-top: 10px;
     text-decoration: none;
-
+&:active {
+  background-color: lightgrey;
+}
   }
+
 }
 
 .error {

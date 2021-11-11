@@ -42,8 +42,9 @@ const PlantDetails = () => {
                 <DetailsElement  title='Nawożenie mineralne' property={ showPlantDetails.fertilization_mineral?.join([', '])}/>
                 <DetailsElement  title='Nawóz mineralny' property={showPlantDetails.fertilizer_mineral} />
                 <DetailsElement  title='Dodatkowe informacje' property={showPlantDetails.additional_Info} />
+                <Link to={`/myplants/edit/${id}`} className="plantForm__addBtn">Edytuj</Link>
             </div>
-            <Link to={`/myplants/edit/${id}`} className="plantForm__addBtn">Edytuj</Link>
+
         </div>
     );
 };

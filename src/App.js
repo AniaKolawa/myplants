@@ -11,7 +11,7 @@ import AddPlant from "./js/AddPlant";
 import PlantsList from "./js/PlantsList";
 import PlantDetails from "./js/PlantDetails";
 import EditPlant from "./js/EditPlant";
-import Search from "./js/Search";
+// import Search from "./js/Search";
 
 export default function App() {
   return (
@@ -34,8 +34,8 @@ export default function App() {
             <Route path="/search">
               <Search />
             </Route>
-            <Route path="/" exact component={Home}>
-              <Home />
+            <Route exact path="/" >
+              <PlantsList />
             </Route>
             <Route path="/addplant" >
               <AddPlant />
@@ -60,9 +60,9 @@ function Home() {
   return <h2>Home</h2>;
 }
 
-// function Search() {
-//   return <h2>Search</h2>;
-// }
+function Search() {
+  return <h2>Search</h2>;
+}
 
 
 
